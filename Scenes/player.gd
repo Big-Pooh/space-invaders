@@ -9,16 +9,17 @@ signal destroyed
 
 const INVULNERABLE_TIME = 2.0
 
-@export var speed = 200
+# Half the width of the playfield (the side walls sit at +/- this).
+const PLAYFIELD_HALF_WIDTH = 380
+
+@export var speed = 300
 var direction = Vector2.ZERO
 
 @onready var collision_rect : CollisionShape2D = $CollisionShape2D
 @onready var animation_player = $AnimationPlayer
 @onready var sprite_2d = $Sprite2D
 
-var bounding_size_x
-var start_bound
-var end_bound
+var half_width
 
 var start_position: Vector2
 var default_texture: Texture2D
@@ -28,16 +29,10 @@ var blink_tween: Tween
 
 
 func _ready():
-	bounding_size_x = collision_rect.shape.get_rect().size.x
+	half_width = collision_rect.shape.get_rect().size.x / 2 * scale.x
 	start_position = position
 	default_texture = sprite_2d.texture
 	animation_player.animation_finished.connect(_on_animation_finished)
-
-	var rect = get_viewport().get_visible_rect()
-	var camera = get_viewport().get_camera_2d()
-	var camera_position = camera.position
-	start_bound = camera_position.x - rect.size.x / 2
-	end_bound = camera_position.x + rect.size.x / 2
 
 
 func _process(delta):
@@ -53,13 +48,9 @@ func _process(delta):
 	else :
 		direction = Vector2.ZERO
 
-	var delta_movement = speed * delta * direction.x
-
-	# check if going out of screen bounds
-	if position.x + delta_movement < start_bound + bounding_size_x * transform.get_scale().x || position.x + delta_movement > end_bound - bounding_size_x * transform.get_scale().x :
-		return
-
-	position.x += delta_movement
+	# stay inside the playfield; clamping (rather than refusing the move) lets the ship reach the edge
+	var limit = PLAYFIELD_HALF_WIDTH - half_width
+	position.x = clamp(position.x + speed * delta * direction.x, -limit, limit)
 
 
 func can_shoot() -> bool:

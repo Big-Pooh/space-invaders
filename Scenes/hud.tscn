@@ -47,17 +47,25 @@ theme_override_font_sizes/font_size = 26
 text = "WAVE  1"
 horizontal_alignment = 2
 
-[node name="BottomBar" type="HBoxContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
+[node name="Ground" type="ColorRect" parent="."]
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = -44.0
-offset_right = -24.0
-offset_bottom = -8.0
+offset_left = 20.0
+offset_top = 818.0
+offset_right = -20.0
+offset_bottom = 821.0
 grow_horizontal = 2
-grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0.898039, 0, 1)
+
+[node name="BottomBar" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 826.0
+offset_right = -24.0
+offset_bottom = 862.0
+grow_horizontal = 2
 theme_override_constants/separation = 12
 alignment = 1
 
@@ -73,38 +81,51 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 8
 
+[node name="KeyboardHint" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 940.0
+offset_bottom = 1100.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 30
+text = "A / D   MOVE
+SPACE   FIRE (HOLD FOR AUTO)
+ESC   PAUSE"
+horizontal_alignment = 1
+
 [node name="TouchControls" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="LeftButton" type="TouchScreenButton" parent="TouchControls"]
+unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(24, 616)
-scale = Vector2(4, 4)
 texture_normal = ExtResource("3_left")
 passby_press = true
 action = "move_left"
 visibility_mode = 1
 
 [node name="RightButton" type="TouchScreenButton" parent="TouchControls"]
+unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(176, 616)
-scale = Vector2(4, 4)
 texture_normal = ExtResource("4_right")
 passby_press = true
 action = "move_right"
 visibility_mode = 1
 
 [node name="FireButton" type="TouchScreenButton" parent="TouchControls"]
+unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(1048, 616)
-scale = Vector2(4, 4)
 texture_normal = ExtResource("5_fire")
 action = "shoot"
 visibility_mode = 1
 
 [node name="PauseButton" type="TouchScreenButton" parent="TouchControls"]
 texture_filter = 1
-position = Vector2(24, 48)
-scale = Vector2(2, 2)
+position = Vector2(20, 46)
+scale = Vector2(2.5, 2.5)
 texture_normal = ExtResource("6_pause")
 action = "pause"
 visibility_mode = 1
@@ -121,17 +142,14 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.6)
 
 [node name="MessageBox" type="VBoxContainer" parent="."]
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -110.0
-offset_right = 400.0
-offset_bottom = 110.0
+offset_left = -390.0
+offset_top = 230.0
+offset_right = 390.0
+offset_bottom = 640.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_constants/separation = 24
 alignment = 1
 
@@ -146,7 +164,7 @@ theme_override_font_sizes/font_size = 72
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="MenuButtons" type="HBoxContainer" parent="MessageBox"]
+[node name="MenuButtons" type="VBoxContainer" parent="MessageBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 24
@@ -154,26 +172,32 @@ alignment = 1
 
 [node name="ResumeButton" type="Button" parent="MessageBox/MenuButtons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 80)
 layout_mode = 2
+size_flags_horizontal = 4
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = " RESUME (ESC) "
 
 [node name="RestartButton" type="Button" parent="MessageBox/MenuButtons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 80)
 layout_mode = 2
+size_flags_horizontal = 4
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = " RESTART (R) "
 
 [node name="MenuButton" type="Button" parent="MessageBox/MenuButtons"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 80)
 layout_mode = 2
+size_flags_horizontal = 4
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_font")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = " MENU (M) "
 
 [connection signal="pressed" from="MessageBox/MenuButtons/ResumeButton" to="." method="toggle_pause"]

@@ -22,10 +22,13 @@ Sfx="*res://Scenes/sfx.gd"
 
 [display]
 
-window/size/viewport_width=1200
-window/size/viewport_height=800
+window/size/viewport_width=800
+window/size/viewport_height=1400
+window/size/window_width_override=480
+window/size/window_height_override=840
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
+window/stretch/aspect="keep_width"
+window/handheld/orientation=1
 
 [input]
 

@@ -7,7 +7,9 @@ signal all_invaders_destroyed
 #spawner configuration
 const ROWS = 5
 const COLUMNS = 11
-const HORIZONTAL_SPACING = 32
+# Same column spacing for every row (widest invader is 12px * 4 scale = 48, plus an 8px gap),
+# so columns line up and the formation fits the narrow portrait playfield.
+const COLUMN_STEP = 56
 const VERTICAL_SPACING = 32
 const INVADER_HEIGHT = 24
 const START_Y_POSITION = -50
@@ -64,7 +66,7 @@ func start_wave(wave: int):
 
 	for row in ROWS:
 		var invader_config = invader_configs[row]
-		var column_step = invader_config.width * 3 + HORIZONTAL_SPACING
+		var column_step = COLUMN_STEP
 		# centre each row around the spawner's origin
 		var start_x = -((COLUMNS - 1) * column_step) / 2.0
 

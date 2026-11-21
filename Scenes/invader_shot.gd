@@ -11,6 +11,8 @@ const FRAMES = [
 const FRAME_TIME = 0.08
 
 @export var speed = 200
+# Shots disappear when they reach the ground line (below the player).
+const GROUND_Y = 335
 # Invader shots cycle through the SpecialShot frames; the UFO keeps the rocket sprite.
 @export var animated = true
 
@@ -28,6 +30,9 @@ func _ready():
 
 func _process(delta):
 	position.y += speed * delta
+	if position.y > GROUND_Y:
+		queue_free()
+		return
 	if animated:
 		frame_timer += delta
 		if frame_timer >= FRAME_TIME:

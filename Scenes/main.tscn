@@ -23,6 +23,8 @@ position = Vector2(2.08165e-12, 302)
 scale = Vector2(4, 4)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-400, -480)
+anchor_mode = 0
 
 [node name="BulletCatcher" parent="." instance=ExtResource("2_3tduv")]
 position = Vector2(4, -387)
@@ -40,7 +42,7 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
-position = Vector2(558, 28.9975)
+position = Vector2(392, 28.9975)
 shape = SubResource("RectangleShape2D_hc82b")
 
 [node name="RightWall" type="Area2D" parent="Walls"]
@@ -52,7 +54,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
 light_mask = 33
 visibility_layer = 5
-position = Vector2(-563, 28.0025)
+position = Vector2(-392, 28.0025)
 shape = SubResource("RectangleShape2D_hc82b")
 
 [node name="BottomWall" type="Area2D" parent="Walls"]
@@ -70,19 +72,19 @@ shape = SubResource("RectangleShape2D_2ovt5")
 [node name="Bunkers" type="Node2D" parent="."]
 
 [node name="Bunker1" parent="Bunkers" instance=ExtResource("6_bunker")]
-position = Vector2(-374, 170)
+position = Vector2(-269, 170)
 scale = Vector2(4, 4)
 
 [node name="Bunker2" parent="Bunkers" instance=ExtResource("6_bunker")]
-position = Vector2(-114, 170)
+position = Vector2(-79, 170)
 scale = Vector2(4, 4)
 
 [node name="Bunker3" parent="Bunkers" instance=ExtResource("6_bunker")]
-position = Vector2(146, 170)
+position = Vector2(111, 170)
 scale = Vector2(4, 4)
 
 [node name="Bunker4" parent="Bunkers" instance=ExtResource("6_bunker")]
-position = Vector2(406, 170)
+position = Vector2(301, 170)
 scale = Vector2(4, 4)
 
 [node name="HUD" parent="." instance=ExtResource("7_hud")]

@@ -125,6 +125,7 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(540, 110)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

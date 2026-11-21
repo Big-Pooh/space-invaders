@@ -1,7 +1,7 @@
 extends Node2D
 
 # UFOs spawn just off-screen on a random side and fly across.
-const SPAWN_X = 650
+const SPAWN_X = 460
 
 @onready var spawn_timer: SpawnTimer = $SpawnTimer
 var ufo_scene: PackedScene = preload("res://Scenes/ufo.tscn")

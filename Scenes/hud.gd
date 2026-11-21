@@ -7,6 +7,11 @@ class_name Hud
 const LIFE_ICON = preload("res://Assets/Player/Player.png")
 const START_SCREEN = "res://Scenes/start_screen.tscn"
 
+# Everything below this y (in screen units) is the touch-control area.
+const CONTROL_AREA_TOP = 870.0
+const BUTTON_TEXTURE_SIZE = 32.0
+const MAX_BUTTON_SIZE = 210.0
+
 @onready var score_label = %ScoreLabel
 @onready var high_score_label = %HighScoreLabel
 @onready var wave_label = %WaveLabel
@@ -17,6 +22,10 @@ const START_SCREEN = "res://Scenes/start_screen.tscn"
 @onready var resume_button = %ResumeButton
 @onready var restart_button = %RestartButton
 @onready var dim = %Dim
+@onready var keyboard_hint = %KeyboardHint
+@onready var left_button = %LeftButton
+@onready var right_button = %RightButton
+@onready var fire_button = %FireButton
 
 var is_game_over = false
 
@@ -31,6 +40,27 @@ func _ready():
 	_on_lives_changed(GameManager.lives)
 	_on_wave_changed(GameManager.wave)
 	hide_message()
+
+	keyboard_hint.visible = not DisplayServer.is_touchscreen_available()
+	get_viewport().size_changed.connect(_layout_touch_controls)
+	_layout_touch_controls()
+
+
+# Big buttons filling the strip under the playfield: move left/right on the left,
+# fire on the right, with a clear gap between them so thumbs don't hit the wrong one.
+func _layout_touch_controls():
+	var view = get_viewport().get_visible_rect().size
+	var area_height = view.y - CONTROL_AREA_TOP
+	var margin = 24.0
+	var gap = 20.0
+	var button_size = clamp(area_height - 2 * margin, 120.0, MAX_BUTTON_SIZE)
+	var y = CONTROL_AREA_TOP + (area_height - button_size) / 2
+	var button_scale = Vector2.ONE * button_size / BUTTON_TEXTURE_SIZE
+	for button in [left_button, right_button, fire_button]:
+		button.scale = button_scale
+	left_button.position = Vector2(margin, y)
+	right_button.position = Vector2(margin + button_size + gap, y)
+	fire_button.position = Vector2(view.x - margin - button_size, y)
 
 
 func _unhandled_input(event):
