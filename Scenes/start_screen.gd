@@ -6,6 +6,8 @@ extends CanvasLayer
 @onready var invader_2_label = %Invader2Label
 @onready var invader_3_texture = %Invader3Texture
 @onready var invader_3_label = %Invader3Label
+@onready var high_score_label = %HighScoreLabel
+@onready var play_button = %Button
 
 @onready var timer = $Timer
 
@@ -19,9 +21,13 @@ func _ready():
 	for control in control_array:
 		(control as Control).modulate = Color.TRANSPARENT
 
+	high_score_label.text = "HI-SCORE  %04d" % GameManager.high_score
+	# Focus the button so Enter / Space starts the game.
+	play_button.grab_focus()
+
+
 func load_game():
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-
 
 
 func show_next_control():
@@ -29,5 +35,5 @@ func show_next_control():
 	if control != null:
 		control.modulate = Color.WHITE
 	else:
-		timer.stop
-		timer.queue_free
+		timer.stop()
+		timer.queue_free()

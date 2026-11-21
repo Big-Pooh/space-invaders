@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bjskxi3kh2y5h"]
+[gd_scene load_steps=10 format=3 uid="uid://bjskxi3kh2y5h"]
 
 [ext_resource type="Texture2D" uid="uid://3bevny4pavby" path="res://Assets/Bunker/BunkerTopLeft-1.png" id="1_x1e8b"]
 [ext_resource type="Texture2D" uid="uid://d07veflsoey5q" path="res://Assets/Bunker/BunkerTopRight-1.png" id="2_pw58c"]
 [ext_resource type="Texture2D" uid="uid://cht8xskkgm5fq" path="res://Assets/Bunker/BunkerBottomLeft-1.png" id="3_scwuf"]
 [ext_resource type="Texture2D" uid="uid://cwq874drcul5i" path="res://Assets/Bunker/BunkerBottomRight-1.png" id="4_vt43m"]
+
+[ext_resource type="Script" path="res://Scenes/bunker_part.gd" id="5_part"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euo7c"]
 size = Vector2(8, 8)
@@ -23,6 +25,10 @@ position = Vector2(4, 0.25)
 [node name="BunkerRight" type="Node2D" parent="."]
 
 [node name="TopLeft" type="Area2D" parent="BunkerRight"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "TopLeft"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerRight/TopLeft"]
 shape = SubResource("RectangleShape2D_euo7c")
@@ -32,6 +38,10 @@ texture_filter = 1
 texture = ExtResource("1_x1e8b")
 
 [node name="TopRight" type="Area2D" parent="BunkerRight"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "TopRight"
 position = Vector2(8, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerRight/TopRight"]
@@ -42,6 +52,10 @@ texture_filter = 1
 texture = ExtResource("2_pw58c")
 
 [node name="BottomLeft" type="Area2D" parent="BunkerRight"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "BottomLeft"
 position = Vector2(2.25, 7.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerRight/BottomLeft"]
@@ -52,11 +66,74 @@ texture_filter = 1
 texture = ExtResource("3_scwuf")
 
 [node name="BottomRight" type="Area2D" parent="BunkerRight"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "BottomRight"
 position = Vector2(8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerRight/BottomRight"]
 shape = SubResource("RectangleShape2D_4dnc8")
 
 [node name="SpriteBottomRight" type="Sprite2D" parent="BunkerRight/BottomRight"]
+texture_filter = 1
+texture = ExtResource("4_vt43m")
+
+[node name="BunkerLeft" type="Node2D" parent="."]
+position = Vector2(-8, 0)
+scale = Vector2(-1, 1)
+
+[node name="TopLeft" type="Area2D" parent="BunkerLeft"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "TopLeft"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerLeft/TopLeft"]
+shape = SubResource("RectangleShape2D_euo7c")
+
+[node name="SpriteTopLeft" type="Sprite2D" parent="BunkerLeft/TopLeft"]
+texture_filter = 1
+texture = ExtResource("1_x1e8b")
+
+[node name="TopRight" type="Area2D" parent="BunkerLeft"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "TopRight"
+position = Vector2(8, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerLeft/TopRight"]
+shape = SubResource("RectangleShape2D_tujke")
+
+[node name="SpriteTopRight" type="Sprite2D" parent="BunkerLeft/TopRight"]
+texture_filter = 1
+texture = ExtResource("2_pw58c")
+
+[node name="BottomLeft" type="Area2D" parent="BunkerLeft"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "BottomLeft"
+position = Vector2(2.25, 7.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerLeft/BottomLeft"]
+shape = SubResource("RectangleShape2D_do8ye")
+
+[node name="SpriteBottomLeft" type="Sprite2D" parent="BunkerLeft/BottomLeft"]
+texture_filter = 1
+texture = ExtResource("3_scwuf")
+
+[node name="BottomRight" type="Area2D" parent="BunkerLeft"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("5_part")
+piece = "BottomRight"
+position = Vector2(8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BunkerLeft/BottomRight"]
+shape = SubResource("RectangleShape2D_4dnc8")
+
+[node name="SpriteBottomRight" type="Sprite2D" parent="BunkerLeft/BottomRight"]
 texture_filter = 1
 texture = ExtResource("4_vt43m")
