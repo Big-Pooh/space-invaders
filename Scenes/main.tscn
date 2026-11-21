@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8vf8la3chiqs"]
+
+[ext_resource type="PackedScene" uid="uid://douukm5u55pco" path="res://Scenes/player.tscn" id="1_s0d3h"]
+[ext_resource type="PackedScene" uid="uid://bcavl1obxe62k" path="res://Scenes/bullet_catcher.tscn" id="2_3tduv"]
+[ext_resource type="PackedScene" uid="uid://o3vqwvbotbav" path="res://Scenes/invader_spawner.tscn" id="3_uu8b8"]
+[ext_resource type="PackedScene" uid="uid://cxtdcavnxl8hq" path="res://Scenes/ufo_spawner.tscn" id="4_fdxoy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hc82b"]
+size = Vector2(24.0014, 712)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ovt5"]
+size = Vector2(1155, 69.625)
+
+[node name="main" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_s0d3h")]
+position = Vector2(2.08165e-12, 302)
+scale = Vector2(4, 4)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BulletCatcher" parent="." instance=ExtResource("2_3tduv")]
+position = Vector2(4, -387)
+
+[node name="InvaderSpawner" parent="." instance=ExtResource("3_uu8b8")]
+light_mask = 4
+position = Vector2(2.08165e-12, -190)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="LeftWall" type="Area2D" parent="Walls"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = -3.14159
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+position = Vector2(558, 28.9975)
+shape = SubResource("RectangleShape2D_hc82b")
+
+[node name="RightWall" type="Area2D" parent="Walls"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = -3.14159
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+light_mask = 33
+visibility_layer = 5
+position = Vector2(-563, 28.0025)
+shape = SubResource("RectangleShape2D_hc82b")
+
+[node name="BottomWall" type="Area2D" parent="Walls"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+rotation = -3.14159
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
+position = Vector2(-8.00128, -290)
+shape = SubResource("RectangleShape2D_2ovt5")
+
+[node name="UfoSpawner" parent="." instance=ExtResource("4_fdxoy")]
+
+[connection signal="area_entered" from="Walls/LeftWall" to="InvaderSpawner" method="_on_left_wall_area_entered"]
+[connection signal="area_entered" from="Walls/RightWall" to="InvaderSpawner" method="_on_right_wall_area_entered"]

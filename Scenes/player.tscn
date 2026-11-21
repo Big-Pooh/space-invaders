@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://douukm5u55pco"]
+
+[ext_resource type="Texture2D" uid="uid://dt0af4o7yh41a" path="res://Assets/Player/Player.png" id="1_3f58p"]
+[ext_resource type="Script" path="res://Scenes/player.gd" id="1_dfucf"]
+[ext_resource type="Texture2D" uid="uid://dsg2krqtkgnca" path="res://Assets/Player/Player-explosion3.png" id="2_by25f"]
+[ext_resource type="Script" path="res://Scenes/shooting.gd" id="3_0w081"]
+[ext_resource type="PackedScene" uid="uid://0x620lbejgnv" path="res://Scenes/laser.tscn" id="4_8x3ij"]
+[ext_resource type="Texture2D" uid="uid://bi2vdab3slwgf" path="res://Assets/Player/Player-explosion1.png" id="5_y77go"]
+[ext_resource type="Texture2D" uid="uid://b4mk25ro2nqtu" path="res://Assets/Player/Player-explosion2.png" id="6_v0pu2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1lut"]
+size = Vector2(13, 5)
+
+[sub_resource type="Animation" id="Animation_57gfa"]
+resource_name = "destroy"
+length = 2.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_y77go"), ExtResource("6_v0pu2"), ExtResource("2_by25f"), ExtResource("5_y77go"), ExtResource("6_v0pu2"), ExtResource("2_by25f"), ExtResource("5_y77go"), ExtResource("6_v0pu2"), ExtResource("2_by25f")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r70cv"]
+_data = {
+"destroy": SubResource("Animation_57gfa")
+}
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_dfucf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_3f58p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.08165e-12, 1.75)
+shape = SubResource("RectangleShape2D_v1lut")
+
+[node name="ShotOrigin" type="Node2D" parent="."]
+position = Vector2(0, -4)
+script = ExtResource("3_0w081")
+laser_scene = ExtResource("4_8x3ij")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r70cv")
+}
