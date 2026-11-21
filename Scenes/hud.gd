@@ -13,7 +13,9 @@ const START_SCREEN = "res://Scenes/start_screen.tscn"
 @onready var lives_label = %LivesLabel
 @onready var lives_icons = %LivesIcons
 @onready var message_label = %MessageLabel
-@onready var hint_label = %HintLabel
+@onready var menu_buttons = %MenuButtons
+@onready var resume_button = %ResumeButton
+@onready var restart_button = %RestartButton
 @onready var dim = %Dim
 
 var is_game_over = false
@@ -52,7 +54,7 @@ func toggle_pause():
 	var paused = not get_tree().paused
 	get_tree().paused = paused
 	if paused:
-		show_message("PAUSED", "ESC  RESUME     R  RESTART     M  MENU")
+		show_message("PAUSED", true)
 	else:
 		hide_message()
 
@@ -69,21 +71,23 @@ func go_to_menu():
 
 func show_game_over():
 	is_game_over = true
-	show_message("GAME OVER", "R  PLAY AGAIN     M  MENU")
+	show_message("GAME OVER", true)
 
 
-func show_message(text: String, hint: String = ""):
+# with_menu = true shows the dimmed backdrop and the Resume/Restart/Menu buttons
+# (used for pause and game over, not for "WAVE n").
+func show_message(text: String, with_menu: bool = false):
 	message_label.text = text
 	message_label.show()
-	hint_label.text = hint
-	hint_label.visible = hint != ""
-	# dim the playfield behind menus (pause / game over), not behind "WAVE n"
-	dim.visible = hint != ""
+	dim.visible = with_menu
+	menu_buttons.visible = with_menu
+	resume_button.visible = not is_game_over
+	restart_button.text = " PLAY AGAIN (R) " if is_game_over else " RESTART (R) "
 
 
 func hide_message():
 	message_label.hide()
-	hint_label.hide()
+	menu_buttons.hide()
 	dim.hide()
 
 

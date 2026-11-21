@@ -25,6 +25,31 @@ func _ready():
 	# Focus the button so Enter / Space starts the game.
 	play_button.grab_focus()
 
+	# On phones held upright the game is tiny, so suggest landscape.
+	if DisplayServer.is_touchscreen_available():
+		get_tree().root.size_changed.connect(_update_rotate_tip)
+		_update_rotate_tip()
+
+
+var rotate_tip: Label
+
+func _update_rotate_tip():
+	var window_size = get_tree().root.size
+	var portrait = window_size.y > window_size.x
+	if portrait and rotate_tip == null:
+		rotate_tip = Label.new()
+		rotate_tip.text = "TURN YOUR PHONE SIDEWAYS TO PLAY"
+		rotate_tip.add_theme_font_override("font", preload("res://Assets/font/andina.ttf"))
+		rotate_tip.add_theme_font_size_override("font_size", 36)
+		rotate_tip.add_theme_color_override("font_color", Color(1, 1, 0.4))
+		rotate_tip.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		rotate_tip.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+		rotate_tip.offset_top = -60
+		rotate_tip.offset_bottom = -12
+		add_child(rotate_tip)
+	elif rotate_tip:
+		rotate_tip.visible = portrait
+
 
 func load_game():
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
